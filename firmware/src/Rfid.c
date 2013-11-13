@@ -28,9 +28,8 @@ static msg_t rfidThread(void *arg)
 
 	SerialConfig config =
 	{ rfidBitrate, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
-	//FIXME the buffers are incremented by one just for safety.
-	char buf[rfidMessageSize + 2];
-	char buf2[rfidMessageSize + 10];
+	char buf[rfidMessageSize + 1];
+	char buf2[rfidMessageSize + 9];
 
 	sdStart(&SD3, &config);
 	while (TRUE)
@@ -43,10 +42,8 @@ static msg_t rfidThread(void *arg)
 		 * the 5 hex bytes (10 ascii) DATA characters.
 		 */
 		/* this is rather ugly (using two buffers...) but for now it works as expected */
-		//FIXME in buf, the 2 first characters are stripped, because for some reason the STX
-		// isn't removed if only 1 is stripped. Same for the end of the buffer.
-		buf[rfidMessageSize - 2] = '\0'; // strip the trailing CR, LF, ETX
-		chsprintf(buf2, "[RFID] %s", buf + 2); // +1 to strip the leading STX char
+		buf[rfidMessageSize - 3] = '\0'; // strip the trailing CR, LF, ETX
+		chsprintf(buf2, "[RFID] %s", buf + 1); // +1 to strip the leading STX char
 
 		bufferPutString(&outputBuffer, buf2);
 	}
@@ -58,4 +55,3 @@ void startRfidThread(void)
 	chThdCreateStatic(rfidWorkingArea, sizeof(rfidWorkingArea), NORMALPRIO,
 			rfidThread, NULL );
 }
-

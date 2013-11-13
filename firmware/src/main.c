@@ -41,6 +41,7 @@ int main(void)
 	startLedBlinkerTreads();
 	startTowersAndFactoriesThread();
 	startSonarThread();
+	startIrThread();
 	startRfidThread();
 	shellInit();
 

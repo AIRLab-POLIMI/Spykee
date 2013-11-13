@@ -81,7 +81,11 @@
 #define GPIOB_PB11_USART3_RX    11		/* USART interface to the RFID reader */
 
 #define GPIOC_OTG_FS_POWER_ON   0
+#define GPIOC_IR3               1
+#define GPIOC_IR2               2
 #define GPIOC_DOUT              3
+#define GPIOC_IR0               4
+#define GPIOC_IR1               5
 #define GPIOC_PC6_TIM8_CH1      6 		/* timer for the EAST sonar PWM out */
 #define GPIOC_MCLK              7
 #define GPIOC_SCLK              10
@@ -260,11 +264,11 @@
  * PC12 - GPIOC_SDIN            (alternate 6).
  */
 #define VAL_GPIOC_MODER             (PIN_MODE_OUTPUT(GPIOC_OTG_FS_POWER_ON) |\
-                                     PIN_MODE_INPUT(1) |                    \
-                                     PIN_MODE_INPUT(2) |                    \
+                                     PIN_MODE_ANALOG(1) |                    \
+                                     PIN_MODE_ANALOG(2) |                    \
                                      PIN_MODE_INPUT(3) |                    \
-                                     PIN_MODE_INPUT(4) |                    \
-                                     PIN_MODE_INPUT(5) |                    \
+                                     PIN_MODE_ANALOG(4) |                    \
+                                     PIN_MODE_ANALOG(5) |                    \
                                      PIN_MODE_ALTERNATE(GPIOC_PC6_TIM8_CH1) | \
                                      PIN_MODE_ALTERNATE(GPIOC_MCLK) |       \
                                      PIN_MODE_INPUT(8) |                    \

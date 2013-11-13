@@ -44,7 +44,7 @@ static msg_t rfidThread(void *arg)
 		 */
 		/* this is rather ugly (using two buffers...) but for now it works as expected */
 		//FIXME in buf, the 2 first characters are stripped, because for some reason the STX
-                // isn't removed if only 1 is stripped. Same for the end of the buffer.
+		// isn't removed if only 1 is stripped. Same for the end of the buffer.
 		buf[rfidMessageSize - 2] = '\0'; // strip the trailing CR, LF, ETX
 		chsprintf(buf2, "[RFID] %s", buf + 2); // +1 to strip the leading STX char
 

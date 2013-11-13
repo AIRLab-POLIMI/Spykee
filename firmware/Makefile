@@ -1,4 +1,4 @@
-CHIBIOS = /opt/ChibiOS/ChibiOS_2.4.2
+CHIBIOS = /opt/ChibiOS/ChibiOS_2.4.4
 
 ##############################################################################
 # Build global options
@@ -83,6 +83,7 @@ CSRC = $(PORTSRC) \
        $(CHIBIOS)/os/various/chprintf.c \
        src/shell.c \
        src/main.c \
+       src/ir.c \
        src/Led.c \
        src/Rfid.c \
        src/TowersAndFactories.c \

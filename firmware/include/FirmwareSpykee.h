@@ -35,6 +35,7 @@ void resetLed(void);
 void startTowersAndFactoriesThread(void);
 void startRfidThread(void);
 void startSonarThread(void);
+void startIrThread(void);
 void shellInitControl(Thread** shell);
 
 /* Set the mode of a group of leds to 'blinking'.

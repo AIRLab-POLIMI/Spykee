@@ -28,13 +28,13 @@ static msg_t rfidThread(void *arg)
 
 	SerialConfig config =
 	{ rfidBitrate, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
-	char buf[rfidMessageSize + 1];
-	char buf2[rfidMessageSize + 12]; //This buffer's size is too big, just for safety
+	char buf[rfidMessageSize + 2]; //This buffer's size is too big, just for safety
+	char buf2[rfidMessageSize + 10]; //This buffer's size is too big, just for safety
 
 	sdStart(&SD3, &config);
 	while (TRUE)
 	{
-		sdRead(&SD3, (uint8_t*) buf, sizeof(buf)-1);
+		sdRead(&SD3, (uint8_t*) buf, sizeof(buf)-2);
 		/* Specification of the ID-12 output data format (ASCII):
 		 * STX (0x02) | DATA (10 ASCII chars) | CHECKSUM (2 ASCII) | CR | LF | ETX (0x03)
 		 * We transmit from here only the data and the checksum. The checksum is not checked
@@ -49,7 +49,7 @@ static msg_t rfidThread(void *arg)
 		for (stxIndex = 0; buf[stxIndex] != '\x02'; stxIndex++);
 
 		//Search for the CR character
-		for (crIndex = 0; buf[crIndex] != '\r'; crIndex++);
+		for (crIndex = stxIndex; buf[crIndex] != '\r'; crIndex++);
 
 		if (crIndex - stxIndex == 13)
 		{
